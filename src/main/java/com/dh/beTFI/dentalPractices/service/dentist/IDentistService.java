@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface IDentistService {
     List<Dentist> getAll();
+
     Dentist getById(int id);
+
     Dentist save(Dentist dentist);
-    Dentist update(Dentist dentist);
+
+    /*Dentist update(Dentist dentist);*/
+
     void delete(int id);
 }

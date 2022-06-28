@@ -74,7 +74,7 @@ public class DentistController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        Dentist dentistUpdated = dentistService.update(updateDentist);
+        Dentist dentistUpdated = dentistService.save(updateDentist);
 
         DentistDTO responseDto = mapper.convertValue(dentistUpdated, DentistDTO.class);
 

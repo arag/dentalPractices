@@ -11,10 +11,8 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_sequence")
     private Long id;
 
-    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "first_name")
     private String firstName;
 
     @Column
@@ -29,6 +27,19 @@ public class Patient {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
+
+    public Patient() {
+    }
+
+    public Patient(Long id, String lastName, String firstName, String email, int dni, LocalDate admissionDate, Address address) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.email = email;
+        this.dni = dni;
+        this.admissionDate = admissionDate;
+        this.address = address;
+    }
 
     public Long getId() {
         return id;
