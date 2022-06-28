@@ -1,33 +1,42 @@
 package com.dh.beTFI.dentalPractices.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "patients")
 public class Patient {
-    private int id;
+    @Id
+    @SequenceGenerator(name = "address_sequence", sequenceName = "address_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_sequence")
+    private Long id;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column
     private String email;
+
+    @Column
     private int dni;
+
+    @Column(name = "admission_date")
     private LocalDate admissionDate;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    public Patient(int id, String lastName, String firstName, String email, int dni, LocalDate admissionDate, Address address) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
-        this.dni = dni;
-        this.admissionDate = admissionDate;
-        this.address = address;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    /* public void setId(Long id) {
         this.id = id;
-    }
+    } es mala práctica */
 
     public String getLastName() {
         return lastName;

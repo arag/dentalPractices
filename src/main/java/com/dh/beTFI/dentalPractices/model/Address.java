@@ -1,27 +1,37 @@
 package com.dh.beTFI.dentalPractices.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "addresses")
 public class Address {
-    private int id;
+    @Id
+    @SequenceGenerator(name = "address_sequence", sequenceName = "address_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_sequence")
+    private Long id;
+
+    @Column
     private String street;
+
+    @Column
     private int number;
+
+    @Column
     private String city;
+
+    @Column
     private String province;
 
-    public Address(int id, String street, int number, String city, String province) {
-        this.id = id;
-        this.street = street;
-        this.number = number;
-        this.city = city;
-        this.province = province;
-    }
+    @OneToOne(mappedBy = "address")
+    private Patient patient;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    /* public void setId(Long id) {
         this.id = id;
-    }
+    }*/
 
     public String getStreet() {
         return street;
@@ -53,5 +63,13 @@ public class Address {
 
     public void setProvince(String province) {
         this.province = province;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 }

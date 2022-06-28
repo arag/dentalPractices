@@ -1,44 +1,41 @@
 package com.dh.beTFI.dentalPractices.service.patient;
 
-import com.dh.beTFI.dentalPractices.repository.patientRepository.PatientRepositoryH2;
+import com.dh.beTFI.dentalPractices.repository.IPatientRepository;
 import com.dh.beTFI.dentalPractices.model.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PatientService implements IPatientService {
 
-    private PatientRepositoryH2 patientRepositoryH2;
-
     @Autowired
-    public PatientService(PatientRepositoryH2 patientRepositoryH2) {
-        this.patientRepositoryH2 = patientRepositoryH2;
-    }
+    private IPatientRepository patientRepository;
 
     @Override
     public List<Patient> getAll() {
-        return patientRepositoryH2.getAll();
+        return patientRepository.findAll();
     }
 
     @Override
-    public Patient getById(int id) {
-        return patientRepositoryH2.getById(id);
+    public Optional<Patient> getById(Long id) {
+        return patientRepository.findById(id);
     }
 
     @Override
-    public Patient save(Patient newPatient) {
-        return patientRepositoryH2.save(newPatient);
+    public Patient save(Patient patient) {
+        return patientRepository.save(patient);
     }
 
-    @Override
+    /*@Override
     public Patient update(Patient patient) {
-        return patientRepositoryH2.update(patient);
-    }
+        return patientRepository.save(patient);
+    }*/
 
     @Override
-    public void delete(int id) {
-        patientRepositoryH2.delete(id);
+    public void delete(Long id) {
+        patientRepository.deleteById(id);
     }
 }
