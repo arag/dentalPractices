@@ -1,35 +1,34 @@
 package com.dh.beTFI.dentalPractices.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "appointments")
 public class Appointment {
-    private int id;
+    @Id
+    @SequenceGenerator(name = "appointment_sequence", sequenceName = "appointment_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointment_sequence")
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "dentist_id", nullable = false)
     private Dentist dentist;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
-    private LocalDate dateTime;
 
-    public Appointment() {}
+    @Column(name = "appointment_date")
+    private LocalDate appointmentDate;
 
-    public Appointment(Dentist dentist, Patient patient, LocalDate dateTime) {
-        this.dentist = dentist;
-        this.patient = patient;
-        this.dateTime = dateTime;
-    }
-
-    public Appointment(int id, Dentist dentist, Patient patient, LocalDate dateTime) {
-        this.id = id;
-        this.dentist = dentist;
-        this.patient = patient;
-        this.dateTime = dateTime;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    /* public void setId(Long id) {
         this.id = id;
-    }
+    } */
 
     public Dentist getDentist() {
         return dentist;
@@ -47,11 +46,11 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public LocalDate getDateTime() {
-        return dateTime;
+    public LocalDate getAppointmentDate() {
+        return appointmentDate;
     }
 
-    public void setDateTime(LocalDate dateTime) {
-        this.dateTime = dateTime;
+    public void setAppointmentDate(LocalDate appointmentDate) {
+        this.appointmentDate = appointmentDate;
     }
 }

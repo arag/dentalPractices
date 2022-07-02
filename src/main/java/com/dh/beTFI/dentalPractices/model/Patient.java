@@ -1,7 +1,11 @@
 package com.dh.beTFI.dentalPractices.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "patients")
@@ -11,8 +15,10 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_sequence")
     private Long id;
 
+    @Column(name = "lastname")
     private String lastName;
 
+    @Column(name = "firstname")
     private String firstName;
 
     @Column
@@ -24,22 +30,13 @@ public class Patient {
     @Column(name = "admission_date")
     private LocalDate admissionDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
     private Address address;
 
-    public Patient() {
-    }
-
-    public Patient(Long id, String lastName, String firstName, String email, int dni, LocalDate admissionDate, Address address) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
-        this.dni = dni;
-        this.admissionDate = admissionDate;
-        this.address = address;
-    }
+    @OneToMany(mappedBy = "patient")
+    @JsonIgnore
+    private Set<Appointment> appointments = new HashSet<>();
 
     public Long getId() {
         return id;

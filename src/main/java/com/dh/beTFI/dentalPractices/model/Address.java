@@ -25,18 +25,6 @@ public class Address {
     @OneToOne(mappedBy = "address")
     private Patient patient;
 
-    public Address() {
-    }
-
-    public Address(Long id, String street, int number, String city, String province, Patient patient) {
-        this.id = id;
-        this.street = street;
-        this.number = number;
-        this.city = city;
-        this.province = province;
-        this.patient = patient;
-    }
-
     public Long getId() {
         return id;
     }

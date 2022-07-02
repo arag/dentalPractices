@@ -1,25 +1,39 @@
 package com.dh.beTFI.dentalPractices.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "dentists")
 public class Dentist {
-    private int id;
+    @Id
+    @SequenceGenerator(name = "dentist_sequence", sequenceName = "dentist_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dentist_sequence")
+    private Long id;
+
+    @Column(name = "lastname")
     private String lastName;
+
+    @Column(name = "firstname")
     private String firstName;
-    private int professionalId;
 
-    public Dentist(int id, String lastName, String firstName, int proffesionalId) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.professionalId = proffesionalId;
-    }
+    @Column(name = "professional_license_number")
+    private int professionalLicenseNumber;
 
-    public int getId() {
+    @OneToMany(mappedBy = "dentist")
+    @JsonIgnore
+    private Set<Appointment> appointments = new HashSet<>();
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    /* public void setId(Long id) {
         this.id = id;
-    }
+    } */
 
     public String getLastName() {
         return lastName;
@@ -37,11 +51,11 @@ public class Dentist {
         this.firstName = firstName;
     }
 
-    public int getProfessionalId() {
-        return professionalId;
+    public int getProfessionalLicenseNumber() {
+        return professionalLicenseNumber;
     }
 
-    public void setProfessionalId(int professionalId) {
-        this.professionalId = professionalId;
+    public void setProfessionalLicenseNumber(int professionalLicenseNumber) {
+        this.professionalLicenseNumber = professionalLicenseNumber;
     }
 }
