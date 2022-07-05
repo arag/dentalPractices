@@ -25,6 +25,7 @@ public class DentistService implements IDentistService {
 
     @Override
     public Dentist save(Dentist dentist) {
+        // probar de implementar excepciones a nivel servicio
         return dentistRepository.save(dentist);
     }
 
