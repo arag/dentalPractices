@@ -1,0 +1,101 @@
+[2022-07-08 15:28:51] [ ERROR] [DentistService:33] 
+Dentist with ID 5 not found
+[2022-07-08 15:29:41] [ INFO ] [DentistService:67] 
+Removing Dentist with ID 1
+[2022-07-08 15:29:49] [ ERROR] [DentistService:33] 
+Dentist with ID 1 not found
+[2022-07-08 15:30:07] [ INFO ] [DentistService:67] 
+Removing Dentist with ID 2
+[2022-07-08 15:31:38] [ ERROR] [DentistService:33] 
+Dentist with ID 1 not found
+[2022-07-08 15:32:50] [ ERROR] [DentistService:33] 
+Dentist with ID 1 not found
+[2022-07-08 15:32:59] [ INFO ] [DentistService:58] 
+Updating Dentist 
+ Old dentist data { ID: 3, LICENSE NUMBER: 111, LASTNAME: Gonzalez, FIRSTNAME: Araceli }
+[2022-07-08 15:33:04] [ ERROR] [DentistService:33] 
+Dentist with ID 1 not found
+[2022-07-08 16:51:24] [ INFO ] [DentistService:48] 
+========== Saving new dentist - LICENSE NUMBER = 111
+[2022-07-08 16:57:46] [ INFO ] [DentistService:47] 
+========== Saving new dentist - LICENSE NUMBER = 111
+[2022-07-08 16:57:46] [ ERROR] [DentistService:50] 
+========== Error saving new dentist. Dentist data: LASTNAME: , FIRSTNAME: null, LICENSE NUMBER: 111
+[2022-07-08 16:59:05] [ INFO ] [DentistService:47] 
+========== Saving new dentist - LICENSE NUMBER = 111
+[2022-07-08 16:59:05] [ ERROR] [DentistService:50] 
+========== Error saving new dentist. Dentist data: LASTNAME: Gonzalez, FIRSTNAME: , LICENSE NUMBER: 111
+[2022-07-08 16:59:31] [ INFO ] [DentistService:47] 
+========== Saving new dentist - LICENSE NUMBER = 0
+[2022-07-08 16:59:31] [ ERROR] [DentistService:50] 
+========== Error saving new dentist. Dentist data: LASTNAME: Gonzalez, FIRSTNAME: Araceli, LICENSE NUMBER: 0
+[2022-07-08 17:02:13] [ INFO ] [DentistService:47] 
+========== Saving new dentist - LICENSE NUMBER = 1
+[2022-07-08 17:10:15] [ INFO ] [DentistService:47] 
+========== Saving new dentist - LICENSE NUMBER = -3
+[2022-07-08 17:10:15] [ ERROR] [DentistService:50] 
+========== Error saving new dentist. Dentist data: LASTNAME: Gonzalez, FIRSTNAME: Araceli, LICENSE NUMBER: -3
+[2022-07-08 17:23:19] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 3
+[2022-07-08 17:23:19] [ ERROR] [DentistService:36] 
+========== Dentist with ID 3 not found
+[2022-07-08 17:23:23] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 2
+[2022-07-08 17:23:23] [ ERROR] [DentistService:36] 
+========== Dentist with ID 2 not found
+[2022-07-08 17:23:25] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 1
+[2022-07-08 17:23:25] [ ERROR] [DentistService:36] 
+========== Dentist with ID 1 not found
+[2022-07-08 17:23:31] [ INFO ] [DentistService:47] 
+========== Saving new dentist - LICENSE NUMBER = 111
+[2022-07-08 17:23:45] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID null
+[2022-07-08 17:25:51] [ INFO ] [DentistService:47] 
+========== Saving new dentist - LICENSE NUMBER = 111
+[2022-07-08 17:25:55] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID null
+[2022-07-08 17:33:22] [ INFO ] [DentistService:47] 
+========== Saving new dentist - LICENSE NUMBER = 111
+[2022-07-08 17:33:27] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID null
+[2022-07-08 17:39:09] [ INFO ] [DentistService:53] 
+========== Saving new dentist - LICENSE NUMBER = 111
+[2022-07-08 17:39:13] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID null
+[2022-07-08 17:39:13] [ ERROR] [DentistService:35] 
+========== Invalid id: null
+[2022-07-08 17:39:49] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 1
+[2022-07-08 17:39:49] [ ERROR] [DentistService:69] 
+========== Error updating dentist. Dentist data: LASTNAME: Gonzalez, FIRSTNAME: Delma, LICENSE NUMBER: 0
+[2022-07-08 17:39:57] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 1
+[2022-07-08 17:39:57] [ ERROR] [DentistService:69] 
+========== Error updating dentist. Dentist data: LASTNAME: Gonzalez, FIRSTNAME: , LICENSE NUMBER: 999
+[2022-07-08 17:40:01] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 1
+[2022-07-08 17:40:01] [ ERROR] [DentistService:69] 
+========== Error updating dentist. Dentist data: LASTNAME: , FIRSTNAME: , LICENSE NUMBER: 999
+[2022-07-08 17:40:04] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 1
+[2022-07-08 17:40:04] [ ERROR] [DentistService:69] 
+========== Error updating dentist. Dentist data: LASTNAME: null, FIRSTNAME: , LICENSE NUMBER: 999
+[2022-07-08 17:40:13] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 1
+[2022-07-08 17:40:13] [ ERROR] [DentistService:69] 
+========== Error updating dentist. Dentist data: LASTNAME: Gonzalez, FIRSTNAME: , LICENSE NUMBER: 999
+[2022-07-08 17:40:17] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 1
+[2022-07-08 17:40:17] [ INFO ] [DentistService:76] 
+========== Updating Dentist 
+ Old dentist data: Optional[LASTNAME: Gonzalez, FIRSTNAME: Araceli, LICENSE NUMBER: 111]
+[2022-07-08 17:43:31] [ INFO ] [DentistService:54] 
+========== Saving new dentist - LICENSE NUMBER = 111
+[2022-07-08 17:43:38] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 1
+[2022-07-08 17:43:41] [ INFO ] [DentistService:32] 
+========== Looking for dentist by ID 1
+[2022-07-08 17:43:41] [ INFO ] [DentistService:77] 
+========== Updating Dentist 
+ Old dentist data: Optional[LASTNAME: Gonzalez, FIRSTNAME: Araceli, LICENSE NUMBER: 111]

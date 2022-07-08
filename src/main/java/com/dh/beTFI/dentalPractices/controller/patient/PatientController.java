@@ -1,5 +1,7 @@
 package com.dh.beTFI.dentalPractices.controller.patient;
 
+import com.dh.beTFI.dentalPractices.exception.BadRequestException;
+import com.dh.beTFI.dentalPractices.exception.ResourceNotFoundException;
 import com.dh.beTFI.dentalPractices.model.Patient;
 import com.dh.beTFI.dentalPractices.service.patient.IPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,12 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id) {
+    public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id) throws ResourceNotFoundException {
         Optional<Patient> response = patientService.getById(id);
 
-        if (response.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (response.isEmpty()) {
+            // acá en realidad va el not found exception y tratar de hacerlo a nivel servicio
+            throw new ResourceNotFoundException("Patient " + id + " not found");
         }
 
         return ResponseEntity.ok(response.get());
@@ -50,12 +53,6 @@ public class PatientController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity removePatient(@PathVariable("id") Long id) {
-        Optional<Patient> patientFound = patientService.getById(id);
-
-        if (patientFound.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
         patientService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

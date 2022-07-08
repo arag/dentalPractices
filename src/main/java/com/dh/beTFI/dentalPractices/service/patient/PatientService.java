@@ -25,6 +25,7 @@ public class PatientService implements IPatientService {
 
     @Override
     public Patient save(Patient patient) {
+        // acá que busque y lance la excepción
         return patientRepository.save(patient);
     }
 

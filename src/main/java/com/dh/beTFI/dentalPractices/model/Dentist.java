@@ -14,11 +14,11 @@ public class Dentist {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dentist_sequence")
     private Long id;
 
-    @Column(name = "lastname")
-    private String lastName;
+    @Column
+    private String lastname;
 
     @Column(name = "firstname")
-    private String firstName;
+    private String firstname;
 
     @Column(name = "professional_license_number")
     private int professionalLicenseNumber;
@@ -35,20 +35,20 @@ public class Dentist {
         this.id = id;
     } */
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public int getProfessionalLicenseNumber() {

@@ -1,5 +1,7 @@
 package com.dh.beTFI.dentalPractices.controller.dentist;
 
+import com.dh.beTFI.dentalPractices.exception.BadRequestException;
+import com.dh.beTFI.dentalPractices.exception.ResourceNotFoundException;
 import com.dh.beTFI.dentalPractices.model.Dentist;
 import com.dh.beTFI.dentalPractices.service.dentist.IDentistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/dentists")
@@ -22,40 +23,22 @@ public class DentistController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dentist> getDentistById(@PathVariable("id") Long id) {
-        Optional<Dentist> response = dentistService.getById(id);
-
-        if (response.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return ResponseEntity.ok(response.get());
+    public ResponseEntity<Dentist> getDentistById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
+        return ResponseEntity.ok(dentistService.getById(id).get());
     }
 
     @PostMapping
-    public ResponseEntity<Dentist> createDentist(@RequestBody Dentist newDentist){
-        return new ResponseEntity<>(dentistService.save(newDentist), HttpStatus.CREATED);
+    public ResponseEntity<Dentist> createDentist(@RequestBody Dentist newDentist) throws BadRequestException {
+        return new ResponseEntity<>(dentistService.create(newDentist), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<Dentist> updateDentist(@RequestBody Dentist updateDentist) {
-        Optional<Dentist> dentistFound = dentistService.getById(updateDentist.getId());
-
-        if (dentistFound.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return ResponseEntity.ok(dentistService.save(updateDentist));
+    public ResponseEntity<Dentist> updateDentist(@RequestBody Dentist updateDentist) throws ResourceNotFoundException, BadRequestException {
+        return ResponseEntity.ok(dentistService.update(updateDentist));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity removeDentist(@PathVariable("id") Long id) {
-        Optional<Dentist> dentistFound = dentistService.getById(id);
-
-        if (dentistFound.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
+    public ResponseEntity removeDentist(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
         dentistService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
