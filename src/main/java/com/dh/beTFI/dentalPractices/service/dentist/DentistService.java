@@ -71,8 +71,7 @@ public class DentistService implements IDentistService {
             throw new BadRequestException("INVALID DENTIST DATA");
         }
 
-        String loggerMessage = String.format("\n========== Updating Dentist \n Old dentist data: %s",
-                dentistFound.toString());
+        String loggerMessage = String.format("\n========== Updating Dentist \n Old dentist data: %s", dentistFound);
 
         logger.info(loggerMessage);
 
