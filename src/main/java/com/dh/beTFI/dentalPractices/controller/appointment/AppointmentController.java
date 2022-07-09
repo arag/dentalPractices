@@ -1,6 +1,7 @@
 package com.dh.beTFI.dentalPractices.controller.appointment;
 
 import com.dh.beTFI.dentalPractices.exception.BadRequestException;
+import com.dh.beTFI.dentalPractices.exception.ResourceNotFoundException;
 import com.dh.beTFI.dentalPractices.model.Appointment;
 import com.dh.beTFI.dentalPractices.service.appointment.IAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,30 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/appointments")
 public class AppointmentController {
-
-    // minima data postman
-    /*
-    {
-        "paciente": {
-        "id": 1
-    },
-        "odontologo": {
-        "id": 1
-    },
-        "fecha": "2022-06-16"
-    }*/
-
     @Autowired
     private IAppointmentService appointmentService;
 
-    /*
     @PostMapping
-    public ResponseEntity<Appointment> createDentist(@RequestBody Appointment newAppointment) throws BadRequestException {
-        // buscar odontologo o ¿ paciente ? si no existen lanzar exception sino todo ok
-        if (!odontologo.isPresent() || !paciente.isPresent()) {
-            throw new BadRequestException("blabla");
-        }
-
+    public ResponseEntity<Appointment> createDentist(@RequestBody Appointment newAppointment) throws BadRequestException, ResourceNotFoundException {
+        System.out.println(newAppointment);
         return new ResponseEntity<>(appointmentService.save(newAppointment), HttpStatus.CREATED);
-    }*/
+    }
 }

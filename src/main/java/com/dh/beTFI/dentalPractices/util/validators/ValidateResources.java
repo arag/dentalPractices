@@ -1,6 +1,7 @@
 package com.dh.beTFI.dentalPractices.util.validators;
 
 import com.dh.beTFI.dentalPractices.model.Address;
+import com.dh.beTFI.dentalPractices.model.Appointment;
 import com.dh.beTFI.dentalPractices.model.Dentist;
 import com.dh.beTFI.dentalPractices.model.Patient;
 
@@ -15,10 +16,8 @@ public class ValidateResources {
                 .matches();
     }
 
-    public static boolean invalidDentistData(Dentist dentistData) {
-        return ValidateDataByType.invalidString(dentistData.getFirstname()) ||
-                ValidateDataByType.invalidString(dentistData.getLastname()) ||
-                ValidateDataByType.invalidInteger(dentistData.getProfessionalLicenseNumber());
+    public static boolean invalidId(Long id) {
+        return id == null;
     }
 
     public static boolean invalidAddressData(Address addressData) {
@@ -32,10 +31,20 @@ public class ValidateResources {
         return  ValidateDataByType.invalidInteger(patientData.getDni()) ||
                 ValidateDataByType.invalidString(patientData.getLastname()) ||
                 ValidateDataByType.invalidString(patientData.getFirstname()) ||
-                        invalidEmail(patientData.getEmail());
+                invalidEmail(patientData.getEmail());
     }
 
-    public static boolean invalidId(Long id) {
-        return id == null;
+    public static boolean invalidDentistData(Dentist dentistData) {
+        return ValidateDataByType.invalidString(dentistData.getFirstname()) ||
+                ValidateDataByType.invalidString(dentistData.getLastname()) ||
+                ValidateDataByType.invalidInteger(dentistData.getProfessionalLicenseNumber());
     }
+
+    public static boolean invalidAppointmentData(Appointment appointmentData) {
+        return appointmentData.getPatient() == null ||
+                appointmentData.getDentist() == null ||
+                invalidId(appointmentData.getPatient().getId()) ||
+                invalidId(appointmentData.getDentist().getId());
+    }
+
 }

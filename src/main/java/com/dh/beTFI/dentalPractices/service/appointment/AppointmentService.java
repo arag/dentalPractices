@@ -1,11 +1,11 @@
-package com.dh.beTFI.dentalPractices.exception.service.appointment;
+package com.dh.beTFI.dentalPractices.service.appointment;
 
 import com.dh.beTFI.dentalPractices.exception.BadRequestException;
 import com.dh.beTFI.dentalPractices.exception.ResourceNotFoundException;
-import com.dh.beTFI.dentalPractices.exception.service.dentist.IDentistService;
-import com.dh.beTFI.dentalPractices.exception.service.patient.IPatientService;
+import com.dh.beTFI.dentalPractices.service.dentist.IDentistService;
+import com.dh.beTFI.dentalPractices.service.patient.IPatientService;
 import com.dh.beTFI.dentalPractices.model.Appointment;
-import com.dh.beTFI.dentalPractices.exception.service.dentist.DentistService;
+import com.dh.beTFI.dentalPractices.service.dentist.DentistService;
 import com.dh.beTFI.dentalPractices.repository.IAppointmentRepository;
 import com.dh.beTFI.dentalPractices.util.validators.ValidateResources;
 import org.apache.log4j.Logger;
@@ -33,14 +33,10 @@ public class AppointmentService implements IAppointmentService {
 
     @Override
     public Appointment save(Appointment appointment) throws BadRequestException, ResourceNotFoundException {
-        String loggerMessage = String.format("\n========== Saving new appointment - Appointment Data: = %s",
-                appointment);
-
-        logger.info(loggerMessage);
-
         if (ValidateResources.invalidAppointmentData(appointment)) {
-            logger.error(String.format("\n========== Error saving new appointment. Appointment data: %s", appointment));
-            throw new BadRequestException("INVALID APPOINTMENT DATA");
+
+            logger.error(String.format("\n========== Error saving new appointment. Appointment data: %s", appointment.showAppointmentData()));
+            throw new BadRequestException("INVALID APPOINTMENT DATA. Appointment: " + appointment.showAppointmentData());
         }
 
         if (dentistService.getById(appointment.getDentist().getId()).isEmpty()) {
@@ -52,6 +48,11 @@ public class AppointmentService implements IAppointmentService {
             logger.error(String.format("\n========== Error saving new appointment. Invalid Patient Id: %s", appointment.getPatient().getId()));
             throw new ResourceNotFoundException("PATIENT DOES NOT EXISTS. PLEASE, REGISTER PATIENT BEFORE");
         }
+
+        String loggerMessage = String.format("\n========== Saving new appointment - Appointment Data: = %s",
+                appointment.showAppointmentData());
+
+        logger.info(loggerMessage);
 
         return appointmentRepository.save(appointment);
     }
