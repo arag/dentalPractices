@@ -1,4 +1,4 @@
-package com.dh.beTFI.dentalPractices.exception.service.patient;
+package com.dh.beTFI.dentalPractices.service.patient;
 
 import com.dh.beTFI.dentalPractices.exception.BadRequestException;
 import com.dh.beTFI.dentalPractices.exception.ResourceNotFoundException;
@@ -44,10 +44,6 @@ public class PatientService implements IPatientService {
 
     @Override
     public Patient create(Patient patient) throws BadRequestException {
-        String loggerMessage = String.format("\n========== Saving new patient - DNI = %s", patient.getDni());
-
-        logger.info(loggerMessage);
-
         if (ValidateResources.invalidPatientData(patient)) {
             logger.error(String.format("\n========== Error saving new patient. Patient data: %s", patient.showPatientData()));
             throw new BadRequestException("INVALID PATIENT DATA");
@@ -58,6 +54,10 @@ public class PatientService implements IPatientService {
             logger.error("\n========== ".concat(message));
             throw new BadRequestException(message);
         }
+
+        String loggerMessage = String.format("\n========== Saving new patient. Patient Data: %s", patient.showPatientData());
+
+        logger.info(loggerMessage);
 
         return patientRepository.save(patient);
     }

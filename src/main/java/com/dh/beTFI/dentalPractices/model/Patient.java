@@ -31,7 +31,7 @@ public class Patient {
     private LocalDate admissionDate;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
     @OneToMany(mappedBy = "patient")
@@ -117,8 +117,10 @@ public class Patient {
     }
 
     public String showPatientData() {
-        String addressData = String.format("STREET = %s, NUMBER = %s, CITY = %s, PROVINCE = %s",
-                address.getStreet(), address.getNumber(), address.getCity(), address.getProvince());
+        String addressData = address != null
+                ? String.format("STREET = %s, NUMBER = %s, CITY = %s, PROVINCE = %s",
+                address.getStreet(), address.getNumber(), address.getCity(), address.getProvince())
+                : null;
         String message = String.format("DNI = %s, LASTNAME = %s, FIRSTNAME = %s, EMAIL = %s, ADMISSION DATE = %s, ADDRESS: %s",
                 dni, lastname, firstname, email, admissionDate.toString(), addressData);
 

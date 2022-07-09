@@ -48,11 +48,6 @@ public class DentistService implements IDentistService {
 
     @Override
     public Dentist create(Dentist dentist) throws BadRequestException {
-        String loggerMessage = String.format("\n========== Saving new dentist - LICENSE NUMBER = %s",
-                dentist.getProfessionalLicenseNumber());
-
-        logger.info(loggerMessage);
-
         if (ValidateResources.invalidDentistData(dentist)) {
             logger.error(String.format("\n========== Error saving new dentist. Dentist data: %s", dentist.showDentistData()));
             throw new BadRequestException("INVALID DENTIST DATA");
@@ -63,6 +58,10 @@ public class DentistService implements IDentistService {
             logger.error("\n========== ".concat(message));
             throw new BadRequestException(message);
         }
+
+        String loggerMessage = String.format("\n========== Saving new dentist. Dentist data: %s", dentist.showDentistData());
+
+        logger.info(loggerMessage);
 
         return dentistRepository.save(dentist);
     }

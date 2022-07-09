@@ -1,4 +1,4 @@
-package com.dh.beTFI.dentalPractices.exception.service.user;
+package com.dh.beTFI.dentalPractices.service.user;
 
 /*
 import com.dh.beTFI.dentalPractices.model.User;

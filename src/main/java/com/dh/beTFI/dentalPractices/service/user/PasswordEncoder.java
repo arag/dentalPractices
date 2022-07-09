@@ -1,4 +1,4 @@
-package com.dh.beTFI.dentalPractices.exception.service.user;
+package com.dh.beTFI.dentalPractices.service.user;
 
 /*
 import org.springframework.context.annotation.Bean;
