@@ -19,4 +19,28 @@ public class AppointmentDTO {
         this.dentistId = dentistId;
         this.appointmentDate = appointmentDate;
     }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
+    }
+
+    public Long getDentistId() {
+        return dentistId;
+    }
+
+    public void setDentistId(Long dentistId) {
+        this.dentistId = dentistId;
+    }
+
+    public LocalDate getAppointmentDate() {
+        return appointmentDate;
+    }
+
+    public void setAppointmentDate(LocalDate appointmentDate) {
+        this.appointmentDate = appointmentDate;
+    }
 }

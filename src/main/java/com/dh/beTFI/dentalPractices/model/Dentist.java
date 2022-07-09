@@ -36,6 +36,10 @@ public class Dentist {
         this.professionalLicenseNumber = professionalLicenseNumber;
     }
 
+    public Dentist(Long id) {
+        this.id = id;
+    }
+
     public Dentist(Long id, String lastname, String firstname, int professionalLicenseNumber) {
         this.id = id;
         this.lastname = lastname;

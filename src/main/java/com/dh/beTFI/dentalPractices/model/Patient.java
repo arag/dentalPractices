@@ -50,6 +50,10 @@ public class Patient {
         this.address = address;
     }
 
+    public Patient(Long id) {
+        this.id = id;
+    }
+
     public Patient(Long id, String lastname, String firstname, String email, int dni, LocalDate admissionDate, Address address) {
         this.id = id;
         this.lastname = lastname;
