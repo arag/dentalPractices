@@ -21,15 +21,13 @@ import java.util.Optional;
 public class AppointmentService implements IAppointmentService {
     private static final Logger logger = Logger.getLogger(DentistService.class);
 
-    @Autowired
     private final IAppointmentRepository appointmentRepository;
 
-    @Autowired
     private final IDentistService dentistService;
 
-    @Autowired
     private final IPatientService patientService;
 
+    @Autowired
     public AppointmentService(IAppointmentRepository appointmentRepository, IDentistService dentistService, IPatientService patientService) {
         this.appointmentRepository = appointmentRepository;
         this.dentistService = dentistService;

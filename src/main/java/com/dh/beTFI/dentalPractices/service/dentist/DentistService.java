@@ -15,9 +15,9 @@ import java.util.Optional;
 @Service
 public class DentistService implements IDentistService {
     private static final Logger logger = Logger.getLogger(DentistService.class);
-    @Autowired
     private final IDentistRepository dentistRepository;
 
+    @Autowired
     public DentistService(IDentistRepository dentistRepository) {
         this.dentistRepository = dentistRepository;
     }

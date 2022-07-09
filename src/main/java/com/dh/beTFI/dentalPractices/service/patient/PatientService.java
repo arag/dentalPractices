@@ -17,11 +17,16 @@ import java.util.Optional;
 @Service
 public class PatientService implements IPatientService {
     private static final Logger logger = Logger.getLogger(PatientService.class);
-    @Autowired
-    private IPatientRepository patientRepository;
+
+    private final IPatientRepository patientRepository;
+
+    private final IAddressRepository addressRepository;
 
     @Autowired
-    private IAddressRepository addressRepository;
+    public PatientService(IPatientRepository patientRepository, IAddressRepository addressRepository) {
+        this.patientRepository = patientRepository;
+        this.addressRepository = addressRepository;
+    }
 
     @Override
     public List<Patient> getAll() {
@@ -88,27 +93,27 @@ public class PatientService implements IPatientService {
         Optional<Patient> patientFound = getById(id);
 
         // remove patient's address
-        Long addresId = patientFound.get().getAddress() != null ?
+        Long addressId = patientFound.get().getAddress() != null ?
                 patientFound.get().getAddress().getId() : null;
 
-        logger.info("\n========== DELETE PATIENT - FIRST, REMOVE PATIENT'S ADDRESS. ADDRESS ID: " + addresId);
+        logger.info("\n========== DELETE PATIENT - FIRST, REMOVE PATIENT'S ADDRESS. ADDRESS ID: " + addressId);
 
-        if (ValidateResources.invalidId(addresId)) {
-            logger.error("\n========== INVALID ADDRESS ID: " + addresId);
+        if (ValidateResources.invalidId(addressId)) {
+            logger.error("\n========== INVALID ADDRESS ID: " + addressId);
             throw new BadRequestException("Address id can not be null");
         }
 
-        Optional<Address> addressFound = addressRepository.findById(addresId);
+        Optional<Address> addressFound = addressRepository.findById(addressId);
 
         if (addressFound.isEmpty()) {
             logger.error(String.format("\n========== ADDRESS WITH ID %s NOT FOUND. IT IS NOT POSSIBLE REMOVE PATIENT WITH ID ",
-                    addresId, id));
-            throw new ResourceNotFoundException("Address id " + addresId + " not found");
+                    addressId, id));
+            throw new ResourceNotFoundException("Address id " + addressId + " not found");
         }
 
-        logger.info(String.format("\n========== REMOVING ADDRESS WITH ID %s", addresId));
+        logger.info(String.format("\n========== REMOVING ADDRESS WITH ID %s", addressId));
 
-        addressRepository.deleteById(addresId);
+        addressRepository.deleteById(addressId);
 
         logger.info(String.format("\n========== REMOVING PATIENT WITH ID %s", patientFound.get().getId()));
 
