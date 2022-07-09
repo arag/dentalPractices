@@ -1,5 +1,7 @@
 package com.dh.beTFI.dentalPractices.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -23,7 +25,25 @@ public class Address {
     private String province;
 
     @OneToOne(mappedBy = "address")
+    @JsonIgnore
     private Patient patient;
+
+    public Address() {}
+
+    public Address(String street, int number, String city, String province) {
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.province = province;
+    }
+
+    public Address(Long id, String street, int number, String city, String province) {
+        this.id = id;
+        this.street = street;
+        this.number = number;
+        this.city = city;
+        this.province = province;
+    }
 
     public Long getId() {
         return id;

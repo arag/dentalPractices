@@ -24,35 +24,23 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id) throws ResourceNotFoundException {
-        Optional<Patient> response = patientService.getById(id);
-
-        if (response.isEmpty()) {
-            // acá en realidad va el not found exception y tratar de hacerlo a nivel servicio
-            throw new ResourceNotFoundException("Patient " + id + " not found");
-        }
-
-        return ResponseEntity.ok(response.get());
+    public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
+        Optional<Patient> patientFound = patientService.getById(id);
+        return ResponseEntity.ok(patientFound.get());
     }
 
     @PostMapping
-    public ResponseEntity<Patient> createPatient(@RequestBody Patient newPatient){
-        return new ResponseEntity<>(patientService.save(newPatient), HttpStatus.CREATED);
+    public ResponseEntity<Patient> createPatient(@RequestBody Patient newPatient) throws BadRequestException {
+        return new ResponseEntity<>(patientService.create(newPatient), HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<Patient> updatePatient(@RequestBody Patient updatePatient) {
-        Optional<Patient> patientFound = patientService.getById(updatePatient.getId());
-
-        if (patientFound.isPresent()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        return ResponseEntity.ok(patientService.save(updatePatient));
+    public ResponseEntity<Patient> updatePatient(@RequestBody Patient updatePatient) throws BadRequestException, ResourceNotFoundException {
+        return ResponseEntity.ok(patientService.update(updatePatient));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity removePatient(@PathVariable("id") Long id) {
+    public ResponseEntity removePatient(@PathVariable("id") Long id) throws BadRequestException, ResourceNotFoundException {
         patientService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
