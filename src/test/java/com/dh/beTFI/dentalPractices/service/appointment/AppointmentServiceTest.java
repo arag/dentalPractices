@@ -67,4 +67,35 @@ class AppointmentServiceTest {
         assertTrue(appointmentListTest.size() > 0);
     }
 
+    @Test
+    @Order(4)
+    public void updateAppointment() throws BadRequestException, ResourceNotFoundException {
+        Long idTest = 1L;
+
+        Appointment appointmentTest = appointmentService.getById(idTest).get();
+
+        LocalDate newDate = LocalDate.parse("2022-08-01");
+
+        appointmentTest.setAppointmentDate(newDate);
+
+        Appointment appointmentUpdated = appointmentService.update(appointmentTest);
+
+        assertEquals(newDate, appointmentUpdated.getAppointmentDate());
+    }
+
+    @Test
+    @Order(5)
+    public void deleteAppointment() throws BadRequestException, ResourceNotFoundException {
+        Long idTest = 1L;
+
+        appointmentService.delete(idTest);
+
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> appointmentService.getById(idTest));
+
+        String expectedMessage = "Appointment id " + idTest + " not found";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 }

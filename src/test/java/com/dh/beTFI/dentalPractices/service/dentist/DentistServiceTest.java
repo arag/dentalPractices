@@ -49,4 +49,19 @@ class DentistServiceTest {
         assertEquals(updated.getProfessionalLicenseNumber(), dentistTest.getProfessionalLicenseNumber());
     }
 
+    @Test
+    @Order(5)
+    public void deleteDentist() throws BadRequestException, ResourceNotFoundException {
+        Long idTest = 1L;
+
+        dentistService.delete(idTest);
+
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> dentistService.getById(idTest));
+
+        String expectedMessage = "Dentist id " + idTest + " not found";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
 }
