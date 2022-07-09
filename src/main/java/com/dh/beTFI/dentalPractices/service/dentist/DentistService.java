@@ -28,7 +28,7 @@ public class DentistService implements IDentistService {
     }
 
     @Override
-    public Optional<Dentist> getById(Long id) throws ResourceNotFoundException, BadRequestException {
+    public Optional<Dentist> getById(Long id) throws BadRequestException, ResourceNotFoundException  {
         logger.info("\n========== Looking for dentist by ID " + id);
 
         if (ValidateResources.invalidId(id)) {
@@ -54,8 +54,14 @@ public class DentistService implements IDentistService {
         logger.info(loggerMessage);
 
         if (ValidateResources.invalidDentistData(dentist)) {
-            logger.error(String.format("\n========== Error saving new dentist. Dentist data: %s", dentist));
+            logger.error(String.format("\n========== Error saving new dentist. Dentist data: %s", dentist.showDentistData()));
             throw new BadRequestException("INVALID DENTIST DATA");
+        }
+
+        if (dentistRepository.findByProfessionalLicenseNumber(dentist.getProfessionalLicenseNumber()).isPresent()) {
+            String message = String.format("Dentist whit license number %s already exists", dentist.getProfessionalLicenseNumber());
+            logger.error("\n========== ".concat(message));
+            throw new BadRequestException(message);
         }
 
         return dentistRepository.save(dentist);
@@ -67,11 +73,11 @@ public class DentistService implements IDentistService {
 
         // Si el getById me responde con dentist es porque existe si no debería haber saltado la excepción
         if (ValidateResources.invalidDentistData(dentist)) {
-            logger.error(String.format("\n========== Error updating dentist. Dentist data: %s", dentist));
+            logger.error(String.format("\n========== Error updating dentist. Dentist data: %s", dentist.showDentistData()));
             throw new BadRequestException("INVALID DENTIST DATA");
         }
 
-        String loggerMessage = String.format("\n========== Updating Dentist \n Old dentist data: %s", dentistFound);
+        String loggerMessage = String.format("\n========== Updating Dentist - Old dentist data: %s", dentistFound);
 
         logger.info(loggerMessage);
 

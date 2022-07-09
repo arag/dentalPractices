@@ -74,4 +74,15 @@ public class Dentist {
     public void setProfessionalLicenseNumber(int professionalLicenseNumber) {
         this.professionalLicenseNumber = professionalLicenseNumber;
     }
+
+    public String showDentistData() {
+        String message = String.format("LICENSE NUMBER = %s, LASTNAME = %s, FIRSTNAME = %s",
+                professionalLicenseNumber, lastname, firstname);
+
+        if (id != null) {
+            message = String.format("ID = %s ", id) + message;
+        }
+
+        return message;
+    }
 }

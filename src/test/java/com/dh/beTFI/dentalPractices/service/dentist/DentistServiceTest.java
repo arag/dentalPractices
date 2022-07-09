@@ -49,13 +49,4 @@ class DentistServiceTest {
         assertEquals(updated.getProfessionalLicenseNumber(), dentistTest.getProfessionalLicenseNumber());
     }
 
-    @Test
-    @Order(5)
-    public void removeDentist() throws BadRequestException, ResourceNotFoundException {
-        Long idTest = 1L;
-        dentistService.delete(idTest);
-        Optional<Dentist> dentistFound = dentistService.getById(idTest);
-        assertTrue(dentistFound.isEmpty());
-    }
-
 }

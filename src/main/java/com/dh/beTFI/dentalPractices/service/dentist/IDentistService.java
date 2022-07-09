@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface IDentistService {
     List<Dentist> getAll();
 
-    Optional<Dentist> getById(Long id) throws ResourceNotFoundException, BadRequestException;
+    Optional<Dentist> getById(Long id) throws BadRequestException, ResourceNotFoundException;
 
     Dentist create(Dentist dentist) throws BadRequestException;
 

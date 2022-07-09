@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/dentists")
@@ -23,8 +24,9 @@ public class DentistController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Dentist> getDentistById(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
-        return ResponseEntity.ok(dentistService.getById(id).get());
+    public ResponseEntity<Dentist> getDentistById(@PathVariable("id") Long id) throws BadRequestException, ResourceNotFoundException {
+        Optional<Dentist> dentistFound = dentistService.getById(id);
+        return ResponseEntity.ok(dentistFound.get());
     }
 
     @PostMapping
