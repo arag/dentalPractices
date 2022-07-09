@@ -30,17 +30,17 @@ public class PatientService implements IPatientService {
 
     @Override
     public Optional<Patient> getById(Long id) throws BadRequestException, ResourceNotFoundException {
-        logger.info("\n========== Looking for patient by ID " + id);
+        logger.info("\n========== LOOKING FOR PATIENT BY ID " + id);
 
         if (ValidateResources.invalidId(id)) {
-            logger.error("\n========== Invalid id: " + id);
-            throw new BadRequestException("Id is required");
+            logger.error("\n========== INVALID ID: " + id);
+            throw new BadRequestException("Id cannot be null");
         }
 
         Optional<Patient> patientFound = patientRepository.findById(id);
 
         if (patientFound.isEmpty()) {
-            logger.error(String.format("\n========== Patient with ID %s not found", id));
+            logger.error(String.format("\n========== PATIENT WITH ID %s NOT FOUND", id));
             throw new ResourceNotFoundException("Patient id " + id + " not found");
         }
 
@@ -50,17 +50,17 @@ public class PatientService implements IPatientService {
     @Override
     public Patient create(Patient patient) throws BadRequestException {
         if (ValidateResources.invalidPatientData(patient)) {
-            logger.error(String.format("\n========== Error saving new patient. Patient data: %s", patient.showPatientData()));
-            throw new BadRequestException("INVALID PATIENT DATA");
+            logger.error(String.format("\n========== ERROR SAVING NEW PATIENT. PATIENT DATA: %s", patient.showPatientData()));
+            throw new BadRequestException("Invalid Patient data. Data: " + patient.showPatientData());
         }
 
         if (patientRepository.findByDni(patient.getDni()).isPresent()) {
             String message = String.format("Patient whit DNI %s already exists", patient.getDni());
-            logger.error("\n========== ".concat(message));
+            logger.error("\n========== ".concat(message.toUpperCase()));
             throw new BadRequestException(message);
         }
 
-        String loggerMessage = String.format("\n========== Saving new patient. Patient Data: %s", patient.showPatientData());
+        String loggerMessage = String.format("\n========== SAVING NEW PATIENT. PATIENT DATA: %s", patient.showPatientData());
 
         logger.info(loggerMessage);
 
@@ -72,11 +72,11 @@ public class PatientService implements IPatientService {
         Optional<Patient> patientFound = getById(patient.getId());
 
         if (ValidateResources.invalidPatientData(patient)) {
-            logger.error(String.format("\n========== Error updating patient. Patient data: %s", patient.showPatientData()));
-            throw new BadRequestException("INVALID PATIENT DATA");
+            logger.error(String.format("\n========== ERROR UPDATING PATIENT. PATIENT DATA: %s", patient.showPatientData()));
+            throw new BadRequestException("Invalid Patient data. Data: " + patient.showPatientData());
         }
 
-        String loggerMessage = String.format("\n========== Updating Patient - Old dentist data: %s", patientFound);
+        String loggerMessage = String.format("\n========== UPDATING PATIENT - OLD PATIENT DATA: %s", patientFound);
 
         logger.info(loggerMessage);
 
@@ -94,23 +94,23 @@ public class PatientService implements IPatientService {
         logger.info("\n========== DELETE PATIENT - FIRST, REMOVE PATIENT'S ADDRESS. ADDRESS ID: " + addresId);
 
         if (ValidateResources.invalidId(addresId)) {
-            logger.error("\n========== Invalid Address id: " + addresId);
+            logger.error("\n========== INVALID ADDRESS ID: " + addresId);
             throw new BadRequestException("Address id can not be null");
         }
 
         Optional<Address> addressFound = addressRepository.findById(addresId);
 
         if (addressFound.isEmpty()) {
-            logger.error(String.format("\n========== Address with ID %s not found. It is not possible remove patient with id ",
+            logger.error(String.format("\n========== ADDRESS WITH ID %s NOT FOUND. IT IS NOT POSSIBLE REMOVE PATIENT WITH ID ",
                     addresId, id));
             throw new ResourceNotFoundException("Address id " + addresId + " not found");
         }
 
-        logger.info(String.format("\n========== Removing Address with ID %s", addresId));
+        logger.info(String.format("\n========== REMOVING ADDRESS WITH ID %s", addresId));
 
         addressRepository.deleteById(addresId);
 
-        logger.info(String.format("\n========== Removing Patient with ID %s", patientFound.get().getId()));
+        logger.info(String.format("\n========== REMOVING PATIENT WITH ID %s", patientFound.get().getId()));
 
         patientRepository.deleteById(id);
     }

@@ -42,9 +42,9 @@ public class PatientController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity removePatient(@PathVariable("id") Long id) throws BadRequestException, ResourceNotFoundException {
+    public ResponseEntity<String> removePatient(@PathVariable("id") Long id) throws BadRequestException, ResourceNotFoundException {
         patientService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Patient successfully removed", HttpStatus.NO_CONTENT);
     }
 
     // ejemplo para trabajar con vistas
