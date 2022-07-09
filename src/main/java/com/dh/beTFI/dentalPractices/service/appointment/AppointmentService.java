@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,27 +37,51 @@ public class AppointmentService implements IAppointmentService {
     }
 
     @Override
-    public Appointment save(Appointment appointment) throws BadRequestException, ResourceNotFoundException {
+    public List<Appointment> getAll() {
+        return appointmentRepository.findAll();
+    }
+
+    @Override
+    public Optional<Appointment> getById(Long id) throws BadRequestException, ResourceNotFoundException {
+        logger.info("\n========== Looking for appointment by ID " + id);
+
+        if (ValidateResources.invalidId(id)) {
+            logger.error("\n========== Invalid id: " + id);
+            throw new BadRequestException("Id is required");
+        }
+
+        Optional<Appointment> appointmentFound = appointmentRepository.findById(id);
+
+        if (appointmentFound.isEmpty()) {
+            logger.error(String.format("\n========== Appointment with ID %s not found", id));
+            throw new ResourceNotFoundException("Appointment id " + id + " not found");
+        }
+
+        return appointmentFound;
+    }
+
+    @Override
+    public Appointment create(Appointment appointment) throws BadRequestException, ResourceNotFoundException {
         if (ValidateResources.invalidAppointmentData(appointment)) {
-            logger.error(String.format("\n========== Error saving new appointment. Appointment data: %s", appointment.showAppointmentData()));
-            throw new BadRequestException("INVALID APPOINTMENT DATA. Appointment: " + appointment.showAppointmentData());
+            logger.error(String.format("\n========== ERROR SAVING NEW APPOINTMENT. APPOINTMENT DATA: %s", appointment.showAppointmentData()));
+            throw new BadRequestException("Invalid Appointment data. Appointment: " + appointment.showAppointmentData());
         }
 
         Optional<Dentist> dentistFound = dentistService.getById(appointment.getDentist().getId());
 
         if (dentistFound.isEmpty()) {
-            logger.error(String.format("\n========== Error saving new appointment. Invalid Dentist Id: %s", appointment.getDentist().getId()));
-            throw new ResourceNotFoundException("DENTIST DOES NOT EXISTS");
+            logger.error(String.format("\n========== ERROR SAVING NEW APPOINTMENT. INVALID DENTIST ID: %s", appointment.getDentist().getId()));
+            throw new ResourceNotFoundException("Dentist does not exist");
         }
 
         Optional<Patient> patientFound = patientService.getById(appointment.getPatient().getId());
 
         if (patientFound.isEmpty()) {
-            logger.error(String.format("\n========== Error saving new appointment. Invalid Patient Id: %s", appointment.getPatient().getId()));
-            throw new ResourceNotFoundException("PATIENT DOES NOT EXISTS. PLEASE, REGISTER PATIENT BEFORE");
+            logger.error(String.format("\n========== ERROR SAVING NEW APPOINTMENT. INVALID PATIENT ID: %s", appointment.getPatient().getId()));
+            throw new ResourceNotFoundException("Patient does not exist. Please register patient");
         }
 
-        String loggerMessage = String.format("\n========== Saving new appointment - Appointment Data: = %s",
+        String loggerMessage = String.format("\n========== SAVING NEW APPOINTMENT - APPOINTMENT DATA: = %s",
                 appointment.showAppointmentData());
 
         logger.info(loggerMessage);
@@ -66,5 +91,49 @@ public class AppointmentService implements IAppointmentService {
         appointmentCreated.setPatient(patientFound.get());
 
         return appointmentCreated;
+    }
+
+    @Override
+    public Appointment update(Appointment appointment) throws BadRequestException, ResourceNotFoundException {
+        Optional<Appointment> appointmentFound = getById(appointment.getId());
+
+        // Si el getById me responde con appointment es porque existe si no debería haber saltado la excepción
+        if (ValidateResources.invalidAppointmentData(appointment)) {
+            logger.error(String.format("\n========== ERROR SAVING NEW APPOINTMENT. APPOINTMENT DATA: %s", appointment.showAppointmentData()));
+            throw new BadRequestException("Invalid Appointment data. Appointment: " + appointment.showAppointmentData());
+        }
+
+        Optional<Dentist> dentistFound = dentistService.getById(appointment.getDentist().getId());
+
+        if (dentistFound.isEmpty()) {
+            logger.error(String.format("\n========== ERROR SAVING NEW APPOINTMENT. INVALID DENTIST ID: %s", appointment.getDentist().getId()));
+            throw new ResourceNotFoundException("Dentist does not exist");
+        }
+
+        Optional<Patient> patientFound = patientService.getById(appointment.getPatient().getId());
+
+        if (patientFound.isEmpty()) {
+            logger.error(String.format("\n========== ERROR SAVING NEW APPOINTMENT. INVALID PATIENT ID: %s", appointment.getPatient().getId()));
+            throw new ResourceNotFoundException("Patient does not exist. Please register patient");
+        }
+
+        String loggerMessage = String.format("\n========== UPDATING APPOINTMENT - OLD APPOINTMENT DATA: = %s", appointmentFound);
+
+        logger.info(loggerMessage);
+
+        Appointment appointmentUpdated = appointmentRepository.save(appointment);
+        appointmentUpdated.setDentist(dentistFound.get());
+        appointmentUpdated.setPatient(patientFound.get());
+
+        return appointmentUpdated;
+    }
+
+    @Override
+    public void delete(Long id) throws BadRequestException, ResourceNotFoundException {
+        Optional<Appointment> appointmentFound = getById(id);
+
+        logger.info(String.format("\n========== REMOVING APPOINTMENT WITH ID %s", appointmentFound.get().getId()));
+
+        appointmentRepository.deleteById(id);
     }
 }
