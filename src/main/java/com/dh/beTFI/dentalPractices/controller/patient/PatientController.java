@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,7 @@ public class PatientController {
 
     @PostMapping
     public ResponseEntity<Patient> createPatient(@RequestBody Patient newPatient) throws BadRequestException {
+        newPatient.setAdmissionDate(LocalDate.now());
         return new ResponseEntity<>(patientService.create(newPatient), HttpStatus.CREATED);
     }
 

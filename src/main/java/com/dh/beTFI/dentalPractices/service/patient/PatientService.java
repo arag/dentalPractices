@@ -2,6 +2,8 @@ package com.dh.beTFI.dentalPractices.service.patient;
 
 import com.dh.beTFI.dentalPractices.exception.BadRequestException;
 import com.dh.beTFI.dentalPractices.exception.ResourceNotFoundException;
+import com.dh.beTFI.dentalPractices.model.Address;
+import com.dh.beTFI.dentalPractices.repository.IAddressRepository;
 import com.dh.beTFI.dentalPractices.repository.IPatientRepository;
 import com.dh.beTFI.dentalPractices.model.Patient;
 import com.dh.beTFI.dentalPractices.util.validators.ValidateResources;
@@ -17,6 +19,9 @@ public class PatientService implements IPatientService {
     private static final Logger logger = Logger.getLogger(PatientService.class);
     @Autowired
     private IPatientRepository patientRepository;
+
+    @Autowired
+    private IAddressRepository addressRepository;
 
     @Override
     public List<Patient> getAll() {
@@ -81,6 +86,29 @@ public class PatientService implements IPatientService {
     @Override
     public void delete(Long id) throws BadRequestException, ResourceNotFoundException {
         Optional<Patient> patientFound = getById(id);
+
+        // remove patient's address
+        Long addresId = patientFound.get().getAddress() != null ?
+                patientFound.get().getAddress().getId() : null;
+
+        logger.info("\n========== DELETE PATIENT - FIRST, REMOVE PATIENT'S ADDRESS. ADDRESS ID: " + addresId);
+
+        if (ValidateResources.invalidId(addresId)) {
+            logger.error("\n========== Invalid Address id: " + addresId);
+            throw new BadRequestException("Address id can not be null");
+        }
+
+        Optional<Address> addressFound = addressRepository.findById(addresId);
+
+        if (addressFound.isEmpty()) {
+            logger.error(String.format("\n========== Address with ID %s not found. It is not possible remove patient with id ",
+                    addresId, id));
+            throw new ResourceNotFoundException("Address id " + addresId + " not found");
+        }
+
+        logger.info(String.format("\n========== Removing Address with ID %s", addresId));
+
+        addressRepository.deleteById(addresId);
 
         logger.info(String.format("\n========== Removing Patient with ID %s", patientFound.get().getId()));
 
