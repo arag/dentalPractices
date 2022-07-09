@@ -27,6 +27,22 @@ public class Dentist {
     @JsonIgnore
     private Set<Appointment> appointments = new HashSet<>();
 
+    public Dentist() {
+    }
+
+    public Dentist(String lastname, String firstname, int professionalLicenseNumber) {
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.professionalLicenseNumber = professionalLicenseNumber;
+    }
+
+    public Dentist(Long id, String lastname, String firstname, int professionalLicenseNumber) {
+        this.id = id;
+        this.lastname = lastname;
+        this.firstname = firstname;
+        this.professionalLicenseNumber = professionalLicenseNumber;
+    }
+
     public Long getId() {
         return id;
     }
