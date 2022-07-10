@@ -18,10 +18,10 @@ public class DataLoader implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        String passwordUser = passwordEncoder.encode("araUser");
-        User user = new User("ara", "araceli", "ara@gmail.com", passwordUser, UserRoleEnum.ROLE_USER);
+        String passwordUser = passwordEncoder.encode("ara");
+        User user = new User("araceli", "ara", "ara@gmail.com", passwordUser, UserRoleEnum.ROLE_USER);
 
-        String passwordAdmin = passwordEncoder.encode("araAdmin");
+        String passwordAdmin = passwordEncoder.encode("admin");
         User admin = new User("admin", "admin", "admin@admin.com", passwordAdmin, UserRoleEnum.ROLE_ADMIN);
 
         userRepository.save(user);

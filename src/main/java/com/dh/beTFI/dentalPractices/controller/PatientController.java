@@ -46,15 +46,4 @@ public class PatientController {
         patientService.delete(id);
         return new ResponseEntity<>("Patient successfully removed", HttpStatus.NO_CONTENT);
     }
-
-    // ejemplo para trabajar con vistas
-    /*
-    @GetMapping("/sarasa")
-    public String getSarasa(Model model, @RequestParam("email") String email) {
-        Patient p = patientService.getSarasa(email);
-        model.addAtribute("nombre", p.getFirstName()); // en la vista voy a recibir los datos en key nombre el valor de nombre por ej
-        model.addAtribute("dni", p.getDni());
-        return "patient"; // nombre de la vista
-    } */
-
 }

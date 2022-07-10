@@ -5,18 +5,18 @@ window.addEventListener('load', function () {
   fetch(url, settings)
     .then((response) => response.json())
     .then((data) => {
+      let table = document.getElementById('dentistData');
+      data = [{ "id": 1, "lastname": "Ortiz", "firstname": "Patricia", "professionalLicenseNumber": 1234 }]
       for (dentist of data) {
-        var table = document.getElementById('dentistTable');
-        var dentistRow = table.insertRow();
-        let tr_id = 'tr_' + dentist.id;
-        dentistRow.id = tr_id;
+        let dentistRow = table.insertRow();
+        dentistRow.id = 'tr_' + dentist.id;
 
         let updateButton = `<button
           type="button"
           id="btn_id_${dentist.id}"
           class="btn btn-info btn_id"
           onclick="findBy(${dentist.id})">
-          ${dentist.id}
+          Actualizar
         </button>`;
 
         let deleteButton = `<button
@@ -27,11 +27,11 @@ window.addEventListener('load', function () {
           Eliminar
         </button>`;
 
-        dentistRow.innerHTML = `<td>${updateButton}</td>
-          <td class="td_lastName">${dentist.lastName.toUpperCase()}</td>
-          <td class="td_firstName">${dentist.firstName.toUpperCase()}</td>
-          <td class="td_professionalId">${dentist.professionalId}</td>
-          <td>${deleteButton}</td>`;
+        dentistRow.innerHTML = `<td class="td_id">${dentist.id}</td>
+          <td class="td_lastname">${dentist.lastname.toUpperCase()}</td>
+          <td class="td_firstname">${dentist.firstname.toUpperCase()}</td>
+          <td class="td_licenseNumber">${dentist.professionalLicenseNumber}</td>
+          <td>${updateButton} ${deleteButton}</td>`;
       }
     });
 });
