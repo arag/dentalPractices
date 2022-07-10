@@ -1,15 +1,11 @@
 package com.dh.beTFI.dentalPractices.service.user;
 
-/*
-import com.dh.beTFI.dentalPractices.model.User;
 import com.dh.beTFI.dentalPractices.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -18,13 +14,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> userFound = userRepository.findByUsername(username);
-
-        if (userFound.isEmpty()) {
-            throw new UsernameNotFoundException("User not found");
-        }
-
-        return userFound.get();
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
- */
