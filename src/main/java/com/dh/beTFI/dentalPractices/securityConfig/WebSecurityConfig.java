@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated().and()
                 .formLogin().and()
-                .logout();
+                .logout()
+                .and().httpBasic(); // para que funcionen las requests en postman
     }
 }
