@@ -57,4 +57,19 @@ class PatientServiceTest {
         Patient updated = patientService.update(patientTest);
         assertEquals(updated.getEmail(), patientTest.getEmail());
     }
+
+    @Test
+    @Order(5)
+    public void deletePatient() throws BadRequestException, ResourceNotFoundException {
+        Long idTest = 1L;
+
+        patientService.delete(idTest);
+
+        Exception exception = assertThrows(ResourceNotFoundException.class, () -> patientService.getById(idTest));
+
+        String expectedMessage = "Patient id " + idTest + " not found";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 }

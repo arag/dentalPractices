@@ -1,30 +1,34 @@
 package com.dh.beTFI.dentalPractices.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "patients")
 public class Patient {
     @Id
-    @SequenceGenerator(name = "patient_sequence", sequenceName = "patient_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "patient_sequence", sequenceName = "patient_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patient_sequence")
     private Long id;
 
-    @Column
+    @Column(nullable = false)
     private String lastname;
 
-    @Column
+    @Column(nullable = false)
     private String firstname;
 
-    @Column
+    @Column(nullable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private int dni;
 
     @Column(name = "admission_date")
@@ -61,62 +65,6 @@ public class Patient {
         this.email = email;
         this.dni = dni;
         this.admissionDate = admissionDate;
-        this.address = address;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    /* public void setId(Long id) {
-        this.id = id;
-    } es mala práctica */
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getDni() {
-        return dni;
-    }
-
-    public void setDni(int dni) {
-        this.dni = dni;
-    }
-
-    public LocalDate getAdmissionDate() {
-        return admissionDate;
-    }
-
-    public void setAdmissionDate(LocalDate admissionDate) {
-        this.admissionDate = admissionDate;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
         this.address = address;
     }
 

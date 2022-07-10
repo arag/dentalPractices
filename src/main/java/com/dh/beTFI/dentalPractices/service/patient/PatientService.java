@@ -85,6 +85,8 @@ public class PatientService implements IPatientService {
 
         logger.info(loggerMessage);
 
+        patient.setAdmissionDate(patientFound.get().getAdmissionDate());
+
         return patientRepository.save(patient);
     }
 

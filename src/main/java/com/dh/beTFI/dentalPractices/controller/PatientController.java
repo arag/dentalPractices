@@ -1,4 +1,4 @@
-package com.dh.beTFI.dentalPractices.controller.patient;
+package com.dh.beTFI.dentalPractices.controller;
 
 import com.dh.beTFI.dentalPractices.exception.BadRequestException;
 import com.dh.beTFI.dentalPractices.exception.ResourceNotFoundException;

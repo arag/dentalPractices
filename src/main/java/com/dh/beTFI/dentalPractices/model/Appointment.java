@@ -1,15 +1,23 @@
 package com.dh.beTFI.dentalPractices.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "appointments")
 public class Appointment {
     @Id
-    @SequenceGenerator(name = "appointment_sequence", sequenceName = "appointment_sequence", allocationSize = 1)
+    @SequenceGenerator(name = "appointment_sequence", sequenceName = "appointment_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointment_sequence")
     private Long id;
+
+    @Column(name = "appointment_date", nullable = false)
+    private LocalDate appointmentDate;
 
     @ManyToOne
     @JoinColumn(name = "dentist_id", nullable = false)
@@ -18,10 +26,6 @@ public class Appointment {
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
-
-    @Column(name = "appointment_date")
-    private LocalDate appointmentDate;
-
 
     public Appointment() {
     }
@@ -36,38 +40,6 @@ public class Appointment {
         this.id = id;
         this.dentist = dentist;
         this.patient = patient;
-        this.appointmentDate = appointmentDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    /* public void setId(Long id) {
-        this.id = id;
-    } */
-
-    public Dentist getDentist() {
-        return dentist;
-    }
-
-    public void setDentist(Dentist dentist) {
-        this.dentist = dentist;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public LocalDate getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(LocalDate appointmentDate) {
         this.appointmentDate = appointmentDate;
     }
 

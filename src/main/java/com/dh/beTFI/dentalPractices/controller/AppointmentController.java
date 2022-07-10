@@ -1,4 +1,4 @@
-package com.dh.beTFI.dentalPractices.controller.appointment;
+package com.dh.beTFI.dentalPractices.controller;
 
 import com.dh.beTFI.dentalPractices.dto.AppointmentDTO;
 import com.dh.beTFI.dentalPractices.exception.BadRequestException;
