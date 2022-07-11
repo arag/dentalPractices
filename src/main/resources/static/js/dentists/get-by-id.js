@@ -5,8 +5,8 @@ const findById = (id) => {
   fetch(url, settings)
     .then((response) => response.json())
     .then((data) => {
-        var myModal = new bootstrap.Modal(document.getElementById('saveDentistModal'));
-        myModal.show();
+        const myDentistModal = new bootstrap.Modal(document.getElementById('saveDentistModal'));
+        myDentistModal.show();
 
         const inputId = `
          <div class="mb-3" style="display:none;">

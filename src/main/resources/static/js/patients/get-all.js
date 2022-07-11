@@ -14,7 +14,7 @@ window.addEventListener('load', function () {
           type="button"
           id="btn_id_${patient.id}"
           class="btn btn-info btn_id"
-          onclick="findBy(${patient.id})">
+          onclick="findById(${patient.id})">
           Actualizar
         </button>`;
 
@@ -35,8 +35,3 @@ window.addEventListener('load', function () {
       }
     });
 });
-
-
-// showModal(title, description, yesBtnLabel = 'Yes');
-document.getElementById('savePatientBtn').onclick = () =>
-  showModal('Registrar Nuevo Paciente', {}, 'Guardar');

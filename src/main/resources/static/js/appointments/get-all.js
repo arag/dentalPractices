@@ -14,7 +14,7 @@ window.addEventListener('load', function () {
           type="button"
           id="btn_id_${appointment.id}"
           class="btn btn-info btn_id"
-          onclick="findBy(${appointment.id})">
+          onclick="findById(${appointment.id})">
           Actualizar
         </button>`;
 
@@ -34,7 +34,3 @@ window.addEventListener('load', function () {
       }
     });
 });
-
-// showModal(title, description, yesBtnLabel = 'Yes');
-document.getElementById('saveAppointmentBtn').onclick = () =>
-  showModal('Registrar Nuevo Turno', {}, 'Guardar');

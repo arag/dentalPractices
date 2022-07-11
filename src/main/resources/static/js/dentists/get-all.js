@@ -35,10 +35,3 @@ window.addEventListener('load', function () {
     });
 });
 
-const dentistData = {
-    lastname: '',
-    firstname: '',
-    professionalLicenseNumber: 0,
-};
-
-
