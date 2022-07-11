@@ -1,15 +1,15 @@
-const saveNewDentist = () => {
-    const lastnameField = document.querySelector('#lastname')?.value;
-    const firstnameField = document.querySelector('#firstname')?.value;
-    const licenseField = document.querySelector('#licenseNumber')?.value;
+const saveNewAppointment = () => {
+    const patientId = document.querySelector('#patientId')?.value;
+    const dentistId = document.querySelector('#dentistId')?.value;
+    const appointmentDate = document.querySelector('#appointmentDate')?.value;
 
     const formData = {
-      lastname: lastnameField,
-      firstname: firstnameField,
-      professionalLicenseNumber: licenseField,
+      patientId,
+      dentistId,
+      appointmentDate,
     };
 
-    const endpointUrl = '/dentists';
+    const endpointUrl = '/appointments';
 
     const settings = {
       method: 'POST',
@@ -43,7 +43,7 @@ const showModal = (title, data, yesBtnLabel = 'Yes') => {
 
   modalWrap = document.createElement('div');
   modalWrap.innerHTML = `
-    <div class="modal fade" tabindex="-1" id="saveDentist">
+    <div class="modal fade" tabindex="-1" id="saveAppointment">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-light">
@@ -53,16 +53,16 @@ const showModal = (title, data, yesBtnLabel = 'Yes') => {
           <div class="modal-body">
             <form>
               <div class="mb-3">
-                <label for="lastname" class="form-label">Apellido</label>
-                <input type="text" class="form-control" id="lastname" required>
+                <label for="patientId" class="form-label">Id de Paciente</label>
+                <input type="number" class="form-control" id="patientId" required>
               </div>
               <div class="mb-3">
-                <label for="firstname" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="firstname" required>
+                <label for="dentistId" class="form-label">Id de Dentista</label>
+                <input type="number" class="form-control" id="dentistId" required>
               </div>
               <div class="mb-3">
-                <label for="licenseNumber" class="form-label">Matrícula</label>
-                <input type="number" class="form-control" id="licenseNumber" required>
+                <label for="appointmentDate" class="form-label">Fecha de Turno</label>
+                <input type="date" class="form-control" id="appointmentDate" required>
               </div>
               <button type="submit" class="btn btn-primary modal-success-btn" data-bs-dismiss="modal">${yesBtnLabel}</button>
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -73,7 +73,7 @@ const showModal = (title, data, yesBtnLabel = 'Yes') => {
     </div>
   `;
 
-  modalWrap.querySelector('#saveDentist').onsubmit = saveNewDentist;
+  modalWrap.querySelector('#saveAppointment').onsubmit = saveNewAppointment;
 
   document.body.append(modalWrap);
 
