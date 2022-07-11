@@ -65,6 +65,10 @@ public class PatientService implements IPatientService {
             throw new BadRequestException(message);
         }
 
+        logger.info("\n========== SAVING NEW ADDRESS");
+
+        addressRepository.save(patient.getAddress());
+
         String loggerMessage = String.format("\n========== SAVING NEW PATIENT. PATIENT DATA: %s", patient.showPatientData());
 
         logger.info(loggerMessage);
