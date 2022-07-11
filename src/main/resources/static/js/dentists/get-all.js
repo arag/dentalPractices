@@ -6,7 +6,6 @@ window.addEventListener('load', function () {
     .then((response) => response.json())
     .then((data) => {
       let table = document.getElementById('dentistData');
-      data = [{ "id": 1, "lastname": "Ortiz", "firstname": "Patricia", "professionalLicenseNumber": 1234 }]
       for (dentist of data) {
         let dentistRow = table.insertRow();
         dentistRow.id = 'tr_' + dentist.id;
@@ -15,7 +14,7 @@ window.addEventListener('load', function () {
           type="button"
           id="btn_id_${dentist.id}"
           class="btn btn-info btn_id"
-          onclick="findBy(${dentist.id})">
+          onclick="findById(${dentist.id})">
           Actualizar
         </button>`;
 
@@ -23,7 +22,7 @@ window.addEventListener('load', function () {
           type="button"
           id="btn_delete_${dentist.id}"
           class="btn btn-danger btn_delete"
-          onclick="deleteBy(${dentist.id})">
+          onclick="deleteById(${dentist.id})">
           Eliminar
         </button>`;
 
@@ -35,3 +34,16 @@ window.addEventListener('load', function () {
       }
     });
 });
+
+const dentistData = {
+    lastname: '',
+    firstname: '',
+    professionalLicenseNumber: 0,
+};
+
+// showModal(title, description, yesBtnLabel = 'Yes');
+document.getElementById('saveDentistBtn').onclick = () =>
+  showModal('Registrar Nuevo Dentista', dentistData, 'Guardar');
+
+document.getElementById('')
+
