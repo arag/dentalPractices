@@ -22,7 +22,7 @@ window.addEventListener('load', function () {
   });
 });
 
-function findBy(id) {
+const findBy = (id) => {
   const url = `/dentists/${id}`;
   const settings = { method: 'GET' };
 
@@ -33,7 +33,7 @@ function findBy(id) {
       document.querySelector('#lastName').value = data.lastName;
       document.querySelector('#firstName').value = data.firstName;
       document.querySelector('#professionalId').value = data.professionalId;
-      document.querySelector('#div_dentist_updating').style.display =
+      document.querySelector('#update_dentist_container').style.display =
         'block';
     })
     .catch((error) => {
