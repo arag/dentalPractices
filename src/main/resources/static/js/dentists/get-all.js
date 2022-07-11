@@ -41,8 +41,4 @@ const dentistData = {
     professionalLicenseNumber: 0,
 };
 
-// showModal(title, description, yesBtnLabel = 'Yes');
-document.getElementById('saveDentistBtn').onclick = () =>
-  showModal('Registrar Nuevo Dentista', {}, 'Guardar');
-
 
