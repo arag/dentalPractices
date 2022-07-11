@@ -42,6 +42,6 @@ public class DentistController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeDentist(@PathVariable("id") Long id) throws ResourceNotFoundException, BadRequestException {
         dentistService.delete(id);
-        return new ResponseEntity<>("Dentist successfully removed", HttpStatus.NO_CONTENT);
+        return ResponseEntity.ok("Dentist successfully removed");
     }
 }
