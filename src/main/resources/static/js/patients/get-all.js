@@ -6,7 +6,6 @@ window.addEventListener('load', function () {
     .then((response) => response.json())
     .then((data) => {
       let table = document.getElementById('patientData');
-      data = [{ "id": 1, "dni": 12345678, "lastname": "Gonzalez", "firstname": "Araceli", "email": "aaa@aaa.com", "admissionDate": "2022-07-10" }]
       for (patient of data) {
         let patientRow = table.insertRow();
         patientRow.id = 'tr_' + patient.id;
@@ -23,7 +22,7 @@ window.addEventListener('load', function () {
           type="button"
           id="btn_delete_${patient.id}"
           class="btn btn-danger btn_delete"
-          onclick="deleteBy(${patient.id})">
+          onclick="deleteById(${patient.id})">
           Eliminar
         </button>`;
 
@@ -32,8 +31,12 @@ window.addEventListener('load', function () {
           <td class="td_lastname">${patient.lastname.toUpperCase()}</td>
           <td class="td_firstname">${patient.firstname.toUpperCase()}</td>
           <td class="td_email">${patient.email}</td>
-          <td class="td_admissionDate">${patient.admissionDate}</td>
           <td>${updateButton} ${deleteButton}</td>`;
       }
     });
 });
+
+
+// showModal(title, description, yesBtnLabel = 'Yes');
+document.getElementById('savePatientBtn').onclick = () =>
+  showModal('Registrar Nuevo Paciente', {}, 'Guardar');

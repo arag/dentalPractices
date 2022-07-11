@@ -43,7 +43,6 @@ const dentistData = {
 
 // showModal(title, description, yesBtnLabel = 'Yes');
 document.getElementById('saveDentistBtn').onclick = () =>
-  showModal('Registrar Nuevo Dentista', dentistData, 'Guardar');
+  showModal('Registrar Nuevo Dentista', {}, 'Guardar');
 
-document.getElementById('')
 
