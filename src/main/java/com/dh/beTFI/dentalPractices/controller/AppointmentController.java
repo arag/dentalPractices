@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +38,9 @@ public class AppointmentController {
     public ResponseEntity<Appointment> createAppointment(@RequestBody AppointmentDTO newAppointmentDTO) throws BadRequestException, ResourceNotFoundException {
         Dentist dentistRequest = new Dentist(newAppointmentDTO.getDentistId());
         Patient patientRequest = new Patient(newAppointmentDTO.getPatientId());
-        Appointment appointmentRequestData = new Appointment(dentistRequest, patientRequest, newAppointmentDTO.getAppointmentDate());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate appointmentDate = LocalDate.parse(newAppointmentDTO.getAppointmentDate(), formatter);
+        Appointment appointmentRequestData = new Appointment(dentistRequest, patientRequest, appointmentDate);
         return new ResponseEntity<>(appointmentService.create(appointmentRequestData), HttpStatus.CREATED);
     }
 
@@ -44,7 +48,9 @@ public class AppointmentController {
     public ResponseEntity<Appointment> updateAppointment(@RequestBody AppointmentDTO newAppointmentDTO) throws BadRequestException, ResourceNotFoundException {
         Dentist dentistRequest = new Dentist(newAppointmentDTO.getDentistId());
         Patient patientRequest = new Patient(newAppointmentDTO.getPatientId());
-        Appointment appointmentRequestData = new Appointment(newAppointmentDTO.getId(), dentistRequest, patientRequest, newAppointmentDTO.getAppointmentDate());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate appointmentDate = LocalDate.parse(newAppointmentDTO.getAppointmentDate(), formatter);
+        Appointment appointmentRequestData = new Appointment(newAppointmentDTO.getId(), dentistRequest, patientRequest, appointmentDate);
         return ResponseEntity.ok(appointmentService.update(appointmentRequestData));
     }
 
