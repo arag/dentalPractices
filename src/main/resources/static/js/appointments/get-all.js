@@ -10,13 +10,14 @@ window.addEventListener('load', function () {
         let appointmentRow = table.insertRow();
         appointmentRow.id = 'tr_' + appointment.id;
 
+        /*
         let updateButton = `<button
           type="button"
           id="btn_id_${appointment.id}"
           class="btn btn-info btn_id"
           onclick="findById(${appointment.id})">
           Actualizar
-        </button>`;
+        </button>`;*/
 
         let deleteButton = `<button
           type="button"
@@ -30,7 +31,7 @@ window.addEventListener('load', function () {
           <td class="td_patient_dni">${appointment.patient.dni}</td>
           <td class="td_dentist_licenseNumber">${appointment.dentist.professionalLicenseNumber}</td>
           <td class="td_appointmentDate">${appointment.appointmentDate}</td>
-          <td>${updateButton} ${deleteButton}</td>`;
+          <td>${deleteButton}</td>`;
       }
     });
 });

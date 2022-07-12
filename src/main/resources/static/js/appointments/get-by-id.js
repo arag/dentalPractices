@@ -5,6 +5,7 @@ const findById = (id) => {
   fetch(url, settings)
     .then((response) => response.json())
     .then((data) => {
+    // no se por qué esto no me abre para actualizar
         const myAppointmentModal = new bootstrap.Modal(document.getElementById('saveAppointmentForm'));
         const myAppointmentModalInstance = bootstrap.Modal.getInstance(myAppointmentModal);
         myAppointmentModalInstance.show();

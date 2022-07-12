@@ -10,13 +10,14 @@ window.addEventListener('load', function () {
         let patientRow = table.insertRow();
         patientRow.id = 'tr_' + patient.id;
 
+        /*
         let updateButton = `<button
           type="button"
           id="btn_id_${patient.id}"
           class="btn btn-info btn_id"
           onclick="findById(${patient.id})">
           Actualizar
-        </button>`;
+        </button>`;*/
 
         let deleteButton = `<button
           type="button"
@@ -31,7 +32,7 @@ window.addEventListener('load', function () {
           <td class="td_lastname">${patient.lastname.toUpperCase()}</td>
           <td class="td_firstname">${patient.firstname.toUpperCase()}</td>
           <td class="td_email">${patient.email}</td>
-          <td>${updateButton} ${deleteButton}</td>`;
+          <td>${deleteButton}</td>`;
       }
     });
 });
