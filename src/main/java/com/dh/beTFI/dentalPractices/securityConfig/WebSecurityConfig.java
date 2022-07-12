@@ -33,6 +33,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated().and()
                 .formLogin().and()
                 .logout()
-                .and().httpBasic(); // para que funcionen las requests en postman
+                .and().httpBasic() // para que funcionen las requests en postman
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/403.html");
     }
 }
